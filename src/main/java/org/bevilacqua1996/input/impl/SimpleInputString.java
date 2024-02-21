@@ -25,6 +25,7 @@ public class SimpleInputString implements InputData {
             tennisScoreGame.play(input);
         } else {
             outputScores.print(Constants.NOT_A_VALID_INPUT);
+            outputScores.print("");
         }
 
     }
