@@ -1,6 +1,5 @@
 package org.bevilacqua1996.utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -13,7 +12,6 @@ public class PropertiesSingleton {
     private PropertiesSingleton() {
         InputStream rootPath = Objects.requireNonNull(this.getClass().getClassLoader()
                 .getResourceAsStream("app.properties"));
-//        String appConfigPath = rootPath + "app.properties";
 
         try {
             appProps = new Properties();
@@ -21,8 +19,6 @@ public class PropertiesSingleton {
         } catch (IOException e) {
             throw new RuntimeException("Error on reading Properties", e);
         }
-
-        String appVersion = appProps.getProperty("architecture.output");
     }
 
     public static Properties getInstance() {
