@@ -1,9 +1,10 @@
 package org.bevilacqua1996.logic.impl;
 
 import org.bevilacqua1996.logic.TennisScoreGame;
+import org.bevilacqua1996.model.OutputEnum;
 import org.bevilacqua1996.model.ScoresEnum;
-import org.bevilacqua1996.print.PrintScores;
-import org.bevilacqua1996.print.impl.PrintSysout;
+import org.bevilacqua1996.output.OutputScores;
+import org.bevilacqua1996.utils.PropertiesSingleton;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -12,14 +13,16 @@ import static org.bevilacqua1996.utils.Constants.*;
 
 public class TennisScoreLogic implements TennisScoreGame {
 
-    PrintScores printScores = new PrintSysout();
-
-    ListIterator<ScoresEnum> scoresPlayerA = ScoresEnum.orderedScore();
-    ListIterator<ScoresEnum> scoresPlayerB = ScoresEnum.orderedScore();
-
-    List<String> scoresList = ScoresEnum.orderedScoreList();
+    public TennisScoreLogic() {
+        String output = PropertiesSingleton.getInstance().getProperty("architecture.output");
+        outputScores = OutputEnum.ofOutputString(output);
+    }
+    OutputScores outputScores;
 
     public String play(String input) {
+        ListIterator<ScoresEnum> scoresPlayerA = ScoresEnum.orderedScore();
+        ListIterator<ScoresEnum> scoresPlayerB = ScoresEnum.orderedScore();
+        List<String> scoresList = ScoresEnum.orderedScoreList();
 
         StringBuilder finalResult = new StringBuilder();
 
@@ -33,26 +36,29 @@ public class TennisScoreLogic implements TennisScoreGame {
                 case 'A' -> {
                     if(calculatePoints(scoresPlayerA, scoresPlayerB)) {
                         finalResult.append(PLAYER_A_WINS);
-                        printScores.print(PLAYER_A_WINS);
+                        outputScores.print(PLAYER_A_WINS);
                         hasWinner = true;
                         break;
                     }
-                    printScores.print("Player A:" + scoresList.get(scoresPlayerA.nextIndex()-1) + " / Player B:" + scoresList.get(scoresPlayerB.nextIndex()-1));
+                    outputScores.print("Player A:" + scoresList.get(scoresPlayerA.nextIndex()-1) + " / Player B:" + scoresList.get(scoresPlayerB.nextIndex()-1));
                 }
                 case 'B' -> {
                     if(calculatePoints(scoresPlayerB, scoresPlayerA)) {
                         finalResult.append(PLAYER_B_WINS);
-                        printScores.print(PLAYER_B_WINS);
+                        outputScores.print(PLAYER_B_WINS);
                         hasWinner = true;
                         break;
                     }
-                    printScores.print("Player A:" + scoresList.get(scoresPlayerA.nextIndex()-1) + " / Player B:" + scoresList.get(scoresPlayerB.nextIndex()-1));
+                    outputScores.print("Player A:" + scoresList.get(scoresPlayerA.nextIndex()-1) + " / Player B:" + scoresList.get(scoresPlayerB.nextIndex()-1));
                 }
             }
         }
 
+        outputScores.print("");
+
         if(!hasWinner) {
             finalResult.append(NO_WINNER_VALIDATION);
+            outputScores.print(NO_WINNER_VALIDATION);
             return  finalResult.toString();
         }
 

@@ -2,7 +2,9 @@ package org.bevilacqua1996;
 
 import org.bevilacqua1996.logic.TennisScoreGame;
 import org.bevilacqua1996.logic.impl.TennisScoreLogic;
+import org.bevilacqua1996.utils.PropertiesSingleton;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.bevilacqua1996.utils.Constants.*;
