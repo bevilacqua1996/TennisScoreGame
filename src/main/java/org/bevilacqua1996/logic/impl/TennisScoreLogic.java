@@ -34,7 +34,7 @@ public class TennisScoreLogic implements TennisScoreGame {
         for(int i=0; i<input.length(); i++) {
             switch (input.charAt(i)) {
                 case 'A' -> {
-                    if(calculatePoints(scoresPlayerA, scoresPlayerB)) {
+                    if(isWinnerBall(scoresPlayerA, scoresPlayerB)) {
                         finalResult.append(PLAYER_A_WINS);
                         outputScores.print(PLAYER_A_WINS);
                         hasWinner = true;
@@ -43,7 +43,7 @@ public class TennisScoreLogic implements TennisScoreGame {
                     outputScores.print("Player A:" + scoresList.get(scoresPlayerA.nextIndex()-1) + " / Player B:" + scoresList.get(scoresPlayerB.nextIndex()-1));
                 }
                 case 'B' -> {
-                    if(calculatePoints(scoresPlayerB, scoresPlayerA)) {
+                    if(isWinnerBall(scoresPlayerB, scoresPlayerA)) {
                         finalResult.append(PLAYER_B_WINS);
                         outputScores.print(PLAYER_B_WINS);
                         hasWinner = true;
@@ -59,6 +59,7 @@ public class TennisScoreLogic implements TennisScoreGame {
         if(!hasWinner) {
             finalResult.append(NO_WINNER_VALIDATION);
             outputScores.print(NO_WINNER_VALIDATION);
+            outputScores.print("");
             return  finalResult.toString();
         }
 
@@ -66,19 +67,22 @@ public class TennisScoreLogic implements TennisScoreGame {
 
     }
 
-    private boolean calculatePoints(ListIterator<ScoresEnum> playerWhichScores, ListIterator<ScoresEnum> otherPlayer) {
+    private boolean isWinnerBall(ListIterator<ScoresEnum> playerWhichScores, ListIterator<ScoresEnum> otherPlayer) {
         if(!playerWhichScores.hasNext()) {
             return true;
         }
 
+        // Compute point
         ScoresEnum currentlyScore = playerWhichScores.next();
 
+        // Check Advantage from another player and deuce
         if(!otherPlayer.hasNext()) {
             playerWhichScores.previous();
             otherPlayer.previous();
             return false;
         }
 
+        // Check deuce and now advantage or winning ball
         if(currentlyScore.equals(ScoresEnum.AD)) {
             ScoresEnum otherPlayerNextPoint = otherPlayer.next();
             if(!otherPlayerNextPoint.equals(ScoresEnum.AD)) {
