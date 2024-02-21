@@ -1,10 +1,12 @@
 package org.bevilacqua1996.model;
 
 import org.bevilacqua1996.output.OutputScores;
+import org.bevilacqua1996.output.impl.OutputLog;
 import org.bevilacqua1996.output.impl.OutputSysout;
 
 public enum OutputEnum {
-    OUTPUT_SYSOUT("OutputSysout", new OutputSysout());
+    OUTPUT_SYSOUT("OutputSysout", new OutputSysout()),
+    OUTPUT_LOG("OutputLog", new OutputLog());
 
     private final String output;
     private final OutputScores classOutput;
