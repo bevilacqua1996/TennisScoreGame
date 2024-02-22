@@ -12,8 +12,27 @@ Since you have maven installed on your development environment, you can package(
 
 Exemple: `java -jar .\tennis-score-1.0-SNAPSHOT-jar-with-dependencies.jar AAAA ABABBAABBB`
 
+## Program behaviours
+
 Each argument after the command will be one game. For each win ball, the program will write the currently points for Player A and B and at the end who won the game.
+
+Example: "ABABABBB"
+
+```
+Player A:15 / Player B:0
+Player A:15 / Player B:15
+Player A:30 / Player B:15
+Player A:30 / Player B:30
+Player A:40 / Player B:30
+Player A:40 / Player B:40
+Player A:40 / Player B:AD
+Player B wins the game
+```
+
 If game doesn't have an end, the program will show the following message: **There is no winner for this game input!**
+
+If game has a winner, but still we have more points to be counted, system will declare who wins and not count excess points. The following message will be shown: **This game is already over, other points will not be counted**. 
+
 Also, if input comes with at least one character different from A or B, the program will show the following message: **Not a valid Input**
 
 ## Architecture

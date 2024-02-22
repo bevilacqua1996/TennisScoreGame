@@ -99,4 +99,15 @@ public class TennisScoreTest {
         Assertions.assertEquals(NO_WINNER_VALIDATION, result);
     }
 
+    @Test
+    public void testGameIsAlreadyOverPlayerAWins() {
+        String input = "AAAAAAAAA";
+
+        TennisScoreGame tennisScoreLogic = new TennisScoreLogic();
+
+        String result = tennisScoreLogic.play(input);
+
+        Assertions.assertEquals(PLAYER_A_WINS, result);
+    }
+
 }

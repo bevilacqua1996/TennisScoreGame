@@ -32,6 +32,10 @@ public class TennisScoreLogic implements TennisScoreGame {
         boolean hasWinner = false;
 
         for(int i=0; i<input.length(); i++) {
+            if(hasWinner) {
+                outputScores.print(GAME_ALREADY_OVER);
+                break;
+            }
             switch (input.charAt(i)) {
                 case 'A' -> {
                     if(isWinnerBall(scoresPlayerA, scoresPlayerB)) {
